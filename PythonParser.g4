@@ -18,3 +18,8 @@ query : "True" | "False"
     |query FALSE query
     !"not" query
     |"("query")";
+
+stmt:(query|expr|atrib)"\n"
+atrib : ?;
+func : ID '(' expr (',' expr)* ')' ;
+code : (stmt|func)*EOF;
