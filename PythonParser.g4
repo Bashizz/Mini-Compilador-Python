@@ -20,6 +20,6 @@ query : "True" | "False"
     |"("query")";
 
 stmt:(query|expr|atrib)"\n"
-atrib : ?;
+atrib : ID  '=' expr "\n"
 func : ID '(' expr (',' expr)* ')' ;
 code : (stmt|func)*EOF;
