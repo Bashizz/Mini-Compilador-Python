@@ -18,4 +18,4 @@ query : 'True'
     ;
 
 atrib : ID  '=' expr '\n';
-func : ID '(' (ID',')*')' ':' (stmt 'return' expr '\n')';
+func : 'def' ID '(' (ID ',' ID)*')' ':' '\n' stmt* 'return' expr '\n';
