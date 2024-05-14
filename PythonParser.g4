@@ -1,8 +1,8 @@
 parser grammar ExprParser;
 options { tokenVocab=ExprLexer; }
 
-code : stmt* EOF;
-stmt : (expr | query) '\n'*;
+code : (stmt | func)* EOF;
+stmt : (expr | query | atrib) '\n'*;
 expr : ID
     | INT
     | NUMBER
@@ -14,10 +14,8 @@ query : 'True'
     | 'False'
     | '('query')'
     | query OP_BOOL query
-    ! 'not' query
+    | 'not' query
     ;
 
-stmt:(query|expr|atrib)"\n"
-atrib : ID  '=' expr "\n"
-func : ID '(' expr (',' expr)* ')' ;
-code : (stmt|func)*EOF;
+atrib : ID  '=' expr '\n';
+func : ID '(' (ID',')*')' ':' '\t' (stmt' return' expr '\n')';
