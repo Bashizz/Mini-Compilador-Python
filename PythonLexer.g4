@@ -29,5 +29,9 @@ NUMBER: INT
   | COMPLEX
   ;
 
+IF : 'if' ;
+ELSE : 'else' ;
+ELIF : 'elif' ;
+
 ID: [a-zA-Z_][a-zA-Z_0-9]* ;
 WS: [ \t\r\f]+ -> skip ;
