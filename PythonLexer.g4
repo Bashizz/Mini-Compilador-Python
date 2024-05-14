@@ -3,13 +3,17 @@ lexer grammar ExprLexer;
 EQ : '=' ;
 COMMA : ',' ;
 SEMI : ';' ;
+COLON : ':' ;
 LPAREN : '(' ;
 RPAREN : ')' ;
 LCURLY : '{' ;
 RCURLY : '}' ;
+BREAKLINE : '\n';
+RETURN: 'return';
+DEF: 'def';
 
-TRUE: 'True'
-FALSE: 'False'
+TRUE: 'True';
+FALSE: 'False';
 NOT : 'not' ;
 
 OP_BOOL: 'and' | 'or' | '&' | '|' ;
