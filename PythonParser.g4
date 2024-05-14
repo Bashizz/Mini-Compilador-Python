@@ -2,22 +2,20 @@ parser grammar ExprParser;
 options { tokenVocab=ExprLexer; }
 
 code : stmt* EOF;
-stmt : expr "\n"
+stmt : (expr | query) '\n'*;
 expr : ID
-    |INT
-    |expr DIV expr
-    |expr MUL expr
-    |expr SUB expr
-    |expr ADD expr
-    |"(" expr")"
+    | INT
+    | NUMBER
+    | expr OP_ARIT expr
+    | '(' expr')'
     ;
     
-stmt : (query|expr) "\n"
-query : "True" | "False"
-    |query TRUE query
-    |query FALSE query
-    !"not" query
-    |"("query")";
+query : 'True' 
+    | 'False'
+    | '('query')'
+    | query OP_BOOL query
+    ! 'not' query
+    ;
 
 stmt:(query|expr|atrib)"\n"
 atrib : ID  '=' expr "\n"
