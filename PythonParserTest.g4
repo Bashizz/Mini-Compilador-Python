@@ -2,11 +2,12 @@ parser grammar ExprParser;
 
 options { tokenVocab=ExprLexer; }
 
-code : (stat | condicional | func | func_call)* EOF;
+code : (stat | condicional | func)* EOF;
 
 stat : (expr | query | atrib) '\n'*;
 
-expr : ID
+expr :func_call 
+    |ID
     | INT
     | NUMBER
     | expr OP_ARIT expr
@@ -30,26 +31,26 @@ condicional
     ;
 
 ifStat
-    : 'if' query ':' '\n' INDENT code DEDENT
+    : 'if' ' ' query ':' '\n' code 
     ;
 
 ifElseStat
-    : 'if' query ':' '\n' INDENT code DEDENT
-      'else' ':' '\n' INDENT code DEDENT
+    : 'if' ' ' query ':' '\n'  code 
+      'else' ' '? ':' '\n'  code 
     ;
 
 ifElifElseStat
-    : 'if' query ':' '\n' INDENT code DEDENT
+    : 'if' ' ' query ':' '\n'  code 
       elifPart+
-      'else' ':' '\n' INDENT code DEDENT
+      'else' ' '? ':' '\n'  code 
     ;
 
 elifPart
-    : 'elif' query ':' '\n' INDENT code DEDENT
+    : 'elif' ' ' query ':' '\n'  code 
     ;
 
-atrib : ID '=' expr ;
+atrib : ID ' ' '=' ' ' expr ;
 
 func : 'def' ID '(' (ID (',' ID)*)? ')' ':' '\n' stat* 'return' expr '\n';
 
-func_call : ID '(' (expr (',' expr)*)? ')' ';';
+func_call : ID '(' (expr (',' expr)*)? ')' ;
