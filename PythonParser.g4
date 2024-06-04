@@ -1,12 +1,14 @@
 parser grammar ExprParser;
 options { tokenVocab=ExprLexer; }
 
-code : (stmt | func)* EOF;
-stmt : (expr | query | atrib) '\n'*;
+code : (stat | condicional | func | func_call)* EOF;
+stat : (expr | query | atrib) '\n'*;
 expr : ID
     | INT
     | NUMBER
     | expr OP_ARIT expr
+    | expr OP_RELA expr
+    | expr OP_ATRI expr
     | '(' expr')'
     ;
     
@@ -17,5 +19,7 @@ query : 'True'
     | 'not' query
     ;
 
-atrib : ID  '=' expr '\n';
-func : 'def' ID '(' (ID ',' ID)*')' ':' '\n' stmt* 'return' expr '\n';
+condicional : 
+
+atrib : ID  '=' expr ';';
+func : 'def' ID '(' (ID ',' ID)*')' ':' '\n' stat* 'return' expr '\n';
