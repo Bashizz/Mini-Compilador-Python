@@ -29,21 +29,21 @@ condicional
     ;
 
 ifStat
-    : 'if' '(' query ')' '{' code '}'
+    : 'if' '(' stat ')' '{' code '}'
     ;
 
 ifElseStat
-    : 'if' '(' query ')' '{' code '}' 'else' '{' code '}'
+    : 'if' '(' stat ')' '{' code '}' 'else' '{' code '}'
     ;
 
 ifElifElseStat
-    : 'if' '(' query ')' '{' code '}'
+    : 'if' '(' stat ')' '{' code '}'
       elifPart+
       'else' '{' code '}'
     ;
 
 elifPart
-    : 'elif' '(' query ')' '{' code '}'
+    : 'elif' '(' stat ')' '{' code '}'
     ;
 
 atrib : ID '=' expr ';';
