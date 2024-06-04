@@ -1,6 +1,5 @@
 lexer grammar ExprLexer;
 
-EQ : '=' ;
 COMMA : ',' ;
 SEMI : ';' ;
 COLON : ':' ;
@@ -18,6 +17,7 @@ NOT : 'not' ;
 
 OP_BOOL: 'and' | 'or' | '&' | '|' ;
 
+EQ : '=' ;
 OP_ARIT: '+' | '-' | '/' | '*' | '**' | '//' | '%' ;
 
 INT: [0-9]+ ;
