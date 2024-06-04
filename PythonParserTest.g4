@@ -29,24 +29,25 @@ condicional
     ;
 
 ifStat
-    : 'if' '(' stat ')' '{' code '}'
+    : 'if' query ':' '\n' INDENT code DEDENT
     ;
 
 ifElseStat
-    : 'if' '(' stat ')' '{' code '}' 'else' '{' code '}'
+    : 'if' query ':' '\n' INDENT code DEDENT
+      'else' ':' '\n' INDENT code DEDENT
     ;
 
 ifElifElseStat
-    : 'if' '(' stat ')' '{' code '}'
+    : 'if' query ':' '\n' INDENT code DEDENT
       elifPart+
-      'else' '{' code '}'
+      'else' ':' '\n' INDENT code DEDENT
     ;
 
 elifPart
-    : 'elif' '(' stat ')' '{' code '}'
+    : 'elif' query ':' '\n' INDENT code DEDENT
     ;
 
-atrib : ID '=' expr ';';
+atrib : ID '=' expr ;
 
 func : 'def' ID '(' (ID (',' ID)*)? ')' ':' '\n' stat* 'return' expr '\n';
 
