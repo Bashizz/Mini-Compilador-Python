@@ -13,6 +13,7 @@ expr : ID
     | expr OP_RELA expr
     | expr OP_ATRI expr
     | '(' expr ')'
+    | expr '(' expr ')'
     ;
 
 query : 'True' 
