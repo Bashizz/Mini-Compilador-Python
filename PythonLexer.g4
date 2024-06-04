@@ -1,5 +1,6 @@
 lexer grammar ExprLexer;
 
+QUOTE: '"';
 COMMA : ',' ;
 SEMI : ';' ;
 COLON : ':' ;
@@ -10,17 +11,17 @@ RCURLY : '}' ;
 BREAKLINE : '\n';
 RETURN: 'return';
 DEF: 'def';
+SPACE: ' ';
 
 TRUE: 'True';
 FALSE: 'False';
 NOT : 'not' ;
 
 OP_BOOL: 'and' | 'or' | '&' | '|' ;
-
-EQ : '=' ;
+EQUAL: '=';
 OP_ARIT: '+' | '-' | '/' | '*' | '**' | '//' | '%' ;
 OP_RELA: '==' | '!=' | '>' | '>=' | '<' | '<=' ;
-OP_ATRI: '=' | '+=' | '-=' | '*=' | '/=' ;
+OP_ATRI: EQUAL | '+=' | '-=' | '*=' | '/=' ;
 
 INT: [0-9]+ ;
 FLOAT: INT '.' INT;
