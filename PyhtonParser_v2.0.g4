@@ -11,25 +11,27 @@ expr : ID
 |printStatement
 |simplePrintStatement
 |formatExpr
-|expr SPACE? OP_ARIT SPACE? expr // Operações aritméticas
-|expr SPACE? OP_RELA SPACE? expr // Operações relacionais
-|'('expr')' // Expressão agrupada
-|func_call // Chamada de função
+|expr SPACE? OP_ARIT SPACE? expr //Operações aritméticas
+|expr SPACE? OP_RELA SPACE? expr //Operações aritméticas
+|OP_ARIT OP_ARIT
+|DOT OP_ARIT
+|'('expr*')'
+|func_call
 ;
 
 atrib : ID SPACE? '=' SPACE? expr;
 
-// Definição de função com parâmetros opcionais
-func : 'def' SPACE? ID '(' (ID (',' SPACE? ID)*)? ')' ':' NEWLINE SPACE* stat* SPACE* 'return' SPACE? expr '\n';
+func : 'def' SPACE? ID '(' (ID (',' SPACE? ID)*)? ')' ':' NEWLINE SPACE* stat* SPACE* 'return'? SPACE? expr '\n';
 
-// Chamada de função com argumentos opcionais
 func_call : ID '(' (expr (',' SPACE? expr)*)? ')';
 
 query : 'True' 
     | 'False'
     | '(' SPACE? query SPACE? ')'
     | query SPACE? OP_BOOL SPACE? query
-    | 'not' query
+    | 'not' SPACE? query
+    | '('SPACE? query SPACE?')'
+    | expr
     ;
 
 conditional: ifStat
@@ -37,16 +39,10 @@ conditional: ifStat
 |elseStat
 ;
 
-// Uma declaração if com uma condição opcional e declarações elif ou else opcionais
-ifStat : IF SPACE? '('? SPACE? expr SPACE? ')'? SPACE? ':' (NEWLINE)* SPACE* expr* (elifStat? elseStat?);
-// Uma declaração elif com uma condição opcional
-elifStat : ELIF SPACE? '('? SPACE? expr SPACE? ')'? SPACE? ':' (NEWLINE)* SPACE* expr*;
-// Uma declaração else
-elseStat : ELSE SPACE? ':' (NEWLINE)* SPACE* expr*;
+ifStat : IF SPACE? '('? SPACE? (expr|query) SPACE? ')'? SPACE? ':' (NEWLINE)* SPACE* expr* (elifStat? elseStat?) '\n''return'? SPACE? expr*;
+elifStat : ELIF SPACE? '('? SPACE? (expr|query) SPACE? ')'? SPACE? ':' (NEWLINE)* SPACE* expr*;
+elseStat : ELSE SPACE? ':' (NEWLINE)* SPACE* (expr|query)*;
 
-// Uma declaração de "print" que inclui uma string e uma expressão formatada opcional
 printStatement : PRINT SPACE? '(' SPACE? STRING (SPACE? formatExpr)? SPACE? ')';
-//Uma declaração de "print" simples que inclui apenas uma string
 simplePrintStatement : PRINT SPACE? '(' SPACE? STRING SPACE? ')';
-// Uma expressão formatada que aplica um formato a uma expressão
 formatExpr : DOT SPACE? FORMAT SPACE? '(' SPACE? expr SPACE? ')';
